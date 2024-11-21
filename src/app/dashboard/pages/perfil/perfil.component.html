@@ -1,0 +1,68 @@
+<div class="profile-container">
+  <!-- Foto de perfil arriba a la derecha -->
+  <div class="profile-photo-top-right" (click)="triggerFileInput()">
+    <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil">
+  </div>
+
+  <form [formGroup]="athleteForm" (ngSubmit)="onSubmit()" class="profile-form">
+    <h1 class="form-title">Perfil del Atleta</h1>
+
+    <div class="form-row">
+      <div class="form-group">
+        <!-- Foto de perfil en el formulario -->
+      <div class="photo-preview" (click)="triggerFileInput()">
+        <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil" />
+      </div>
+      <input
+        id="photo"
+        type="file"
+        accept="image/*"
+        (change)="onFileChange($event)"
+        #fileInput
+      />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Nombre</label>
+      <input id="name" type="text" formControlName="name" placeholder="Tu nombre completo" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="age">Edad</label>
+        <input id="age" type="number" formControlName="age" placeholder="Edad" />
+      </div>
+      <div class="form-group">
+        <label for="gender">Sexo</label>
+        <select id="gender" formControlName="gender">
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="height">Altura (cm)</label>
+        <input id="height" type="number" formControlName="height" placeholder="Altura en cm" />
+      </div>
+      <div class="form-group">
+        <label for="weight">Peso (kg)</label>
+        <input id="weight" type="number" formControlName="weight" placeholder="Peso en kg" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Correo Electrónico</label>
+      <input id="email" type="email" formControlName="email" placeholder="Correo electrónico" />
+    </div>
+
+    <div class="form-group">
+      <label for="specialty">Especialidad</label>
+      <input id="specialty" type="text" formControlName="specialty" placeholder="Tu especialidad en el gimnasio" />
+    </div>
+
+    <button type="submit" [disabled]="athleteForm.invalid">Guardar Cambios</button>
+  </form>
+</div>

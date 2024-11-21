@@ -1,0 +1,112 @@
+/* Contenedor principal */
+.modern-sidenav-container {
+  height: 100vh;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo para el menú lateral */
+.modern-sidenav {
+  width: 240px;
+  background-color: #1a1a1a; /* Fondo oscuro elegante */
+  color: #d4af37; /* Oro */
+  border-right: 1px solid #333;
+  overflow: hidden;
+  transition: transform 0.1s ease-in-out;
+}
+
+/* Encabezado del menú */
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #d4af37; /* Oro */
+  background-color: #111; /* Fondo más oscuro */
+  padding: 15px;
+}
+
+/* Estilo de los elementos del menú */
+.mat-list-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  gap: 10px; /* Espaciado entre íconos y texto */
+  font-size: 16px;
+  color: #d4af37; /* Oro */
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  border-bottom: 1px solid #333; /* Separador sutil */
+}
+
+.mat-list-item:hover {
+  background-color: #333;
+  color: #fff; /* Blanco para el hover */
+}
+
+.mat-list-item.active {
+  background-color: #d4af37; /* Oro */
+  color: #000; /* Negro */
+  font-weight: bold;
+}
+
+/* Estilo para alinear los íconos, texto y flecha */
+.mat-list-item-content {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre el ícono y el texto */
+  flex: 1;
+}
+
+.mat-list-item-content span {
+  flex-grow: 1; /* El texto ocupa el espacio sobrante */
+  text-align: left;
+}
+
+.mat-list-item mat-icon.arrow-icon {
+  color: #d4af37; /* Oro */
+  font-size: 18px; /* Tamaño moderado */
+}
+
+/* Iconos del menú */
+.mat-list-item mat-icon:first-child {
+  font-size: 24px; /* Tamaño del ícono inicial */
+}
+
+/* Contenido principal */
+.content {
+  padding: 20px;
+  background-color: #000000;
+  color: #e0e0e0;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Barra superior */
+.modern-toolbar {
+  background-color: #1e90ff;
+  color: #ffffff;
+}
+
+/* Botón de menú */
+button.mat-icon-button {
+  color: #ffffff;
+  transition: transform 0.2s;
+}
+
+button.mat-icon-button:hover {
+  transform: scale(1.1);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

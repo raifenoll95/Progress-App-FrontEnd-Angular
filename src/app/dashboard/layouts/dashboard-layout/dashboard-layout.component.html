@@ -1,0 +1,51 @@
+<mat-sidenav-container class="modern-sidenav-container">
+  <!-- Menú lateral -->
+  <mat-sidenav #sidenav mode="over" opened="false" class="modern-sidenav">
+    <mat-toolbar color="primary" class="sidenav-header">
+      <mat-icon>menu</mat-icon>
+      <span>Menú</span>
+    </mat-toolbar>
+    <hr>
+    <mat-nav-list>
+      <a mat-list-item (click)="sidenav.close()" routerLink="/dashboard/perfil" routerLinkActive="active">
+        <div class="mat-list-item-content">
+          <mat-icon>person</mat-icon>
+          <span>Perfil</span>
+          <mat-icon class="arrow-icon">chevron_right</mat-icon>
+        </div>
+
+      </a>
+      <a mat-list-item (click)="sidenav.close()" routerLink="/dashboard/configuracion" routerLinkActive="active">
+        <div class="mat-list-item-content">
+          <mat-icon>settings</mat-icon>
+          <span>Configuración</span>
+          <mat-icon class="arrow-icon">chevron_right</mat-icon>
+        </div>
+
+      </a>
+      <a mat-list-item (click)="sidenav.close()" routerLink="/dashboard/ayuda" routerLinkActive="active">
+        <div class="mat-list-item-content">
+          <mat-icon>help</mat-icon>
+          <span>Ayuda</span>
+          <mat-icon class="arrow-icon">chevron_right</mat-icon>
+        </div>
+
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="modern-sidenav">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>ProgressApp</span>
+    </mat-toolbar>
+
+    <!-- Área de contenido dinámico -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
