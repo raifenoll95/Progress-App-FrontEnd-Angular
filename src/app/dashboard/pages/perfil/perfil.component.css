@@ -145,3 +145,35 @@ button:hover:not(:disabled) {
     height: 40px;
   }
 }
+
+/* Estilo para el título del Swal */
+.swal-title {
+  font-size: 24px;
+  color: #d4af37; /* Dorado */
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Estilo para el contenido del Swal */
+.swal-content {
+  font-size: 16px;
+  color: #e0e0e0; /* Blanco suave */
+  text-align: center;
+}
+
+/* Estilo para el botón del Swal */
+.swal-btn {
+  background-color: #d4af37; /* Dorado */
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.swal-btn:hover {
+  background-color: #ffc857; /* Color dorado más claro en hover */
+}
+
