@@ -1,1 +1,86 @@
-<p>objectives works!</p>
+<div class="objective-container">
+  <!-- Botón para mostrar/ocultar formulario -->
+  <div class="form-toggle-container">
+    <button (click)="toggleForm()" class="form-toggle-button">
+      {{ showFormObjective ? 'Cerrar' : 'Añadir Objetivo' }}
+    </button>
+  </div>
+
+  <!-- Formulario -->
+  <form
+    *ngIf="showFormObjective"
+    [formGroup]="objectiveForm"
+    (ngSubmit)="addObjective()"
+    class="objective-form"
+  >
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Nombre del Ejercicio</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Ejemplo: Sentadillas"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="reps">Repeticiones</label>
+        <input
+          type="number"
+          id="reps"
+          formControlName="reps"
+          placeholder="Ejemplo: 12"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="weight">Peso (Kg)</label>
+        <input
+          type="number"
+          id="weight"
+          formControlName="weight"
+          placeholder="Ejemplo: 80"
+        />
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="objectiveForm.invalid"
+      class="objective-button"
+    >
+      Añadir Objetivo
+    </button>
+  </form>
+
+  <!-- Tabla de objetivos -->
+  <div class="table-container">
+    <table class="objective-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ejercicio</th>
+          <th>Objetivo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let objective of objectives; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ objective.name }}</td>
+          <td>{{ objective.reps }} x {{ objective.weight }} kg</td>
+          <td>
+            <!-- <button class="action-button" (click)="deleteObjective(objective.id)">
+              Eliminar
+            </button> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="profile-container">
   <!-- Foto de perfil arriba a la derecha -->
-  <div class="profile-photo-top-right" (click)="triggerFileInput()">
+  <div class="profile-photo-top-right">
     <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil">
   </div>
 
@@ -29,6 +29,18 @@
       <input id="name" type="text" formControlName="name" placeholder="Tu nombre completo" />
     </div>
 
+    <div class="form-group">
+      <label for="specialty">Especialidad</label>
+      <select id="specialty" formControlName="specialty">
+        <option value="Calistenia">Calistenia</option>
+        <option value="Street Lifting">Street Lifting</option>
+        <option value="Power Lifting">Power Lifting</option>
+        <option value="Body Building">Body Building</option>
+        <option value="Crossfit">Crossfit</option>
+        <option value="Halterofilia">Halterofilia</option>
+      </select>
+    </div>
+
     <div class="form-row">
       <div class="form-group">
         <label for="age">Edad</label>
@@ -54,16 +66,12 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="email">Correo Electrónico</label>
-      <input id="email" type="email" formControlName="email" placeholder="Correo electrónico" [readonly]="true"/>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">Correo Electrónico</label>
+        <input id="email" type="email" formControlName="email" placeholder="Correo electrónico" [readonly]="true"/>
+      </div>
     </div>
-
-    <div class="form-group">
-      <label for="specialty">Especialidad</label>
-      <input id="specialty" type="text" formControlName="specialty" placeholder="Tu especialidad en el gimnasio" />
-    </div>
-
     <button type="submit" [disabled]="athleteForm.invalid">Guardar Cambios</button>
   </form>
 </div>

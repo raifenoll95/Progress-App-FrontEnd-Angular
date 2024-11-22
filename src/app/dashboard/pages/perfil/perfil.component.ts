@@ -150,10 +150,8 @@ export class PerfilComponent implements OnInit {
     }
   }
 
-  private saveProfile(
-    name: string, age: number, gender: string, height: number,
-    weight: number, email: string, specialty: string, photo: string
-  ): void {
+  //Guardar/Update perfil
+  private saveProfile(name: string, age: number, gender: string, height: number, weight: number, email: string, specialty: string, photo: string): void {
     if (this.isEditing && this.profileId) {
       // Actualizar perfil
       this.dashboardService.updateProfile(

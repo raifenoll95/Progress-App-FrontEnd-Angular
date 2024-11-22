@@ -1,0 +1,98 @@
+/* Contenedor principal */
+.login-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background-color: #1a1a1a;
+  color: #d4af37; /* Oro */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Título del formulario */
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+/* Grupo de entrada */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 14px;
+  color: #e0e0e0;
+  margin-bottom: 5px;
+}
+
+.input100 {
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #0a192f;
+  color: #fff;
+  font-size: 14px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input100:focus {
+  outline: none;
+  border-color: #d4af37;
+}
+
+/* Botón de inicio de sesión */
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #d4af37;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.login-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.login-btn:hover:not(:disabled) {
+  background-color: #ffc857;
+}
+
+/* Enlace para registrarse */
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-link span {
+  font-size: 14px;
+  color: #e0e0e0;
+}
+
+.register-link a {
+  font-size: 14px;
+  color: #d4af37;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  color: #ffc857;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 15px;
+  }
+}

@@ -221,7 +221,7 @@ button:hover {
 .focus-input100::after {
   content: attr(data-symbol);
   font-family: Material-Design-Iconic-Font;
-  color: #adadad;
+  color: #131313;
   font-size: 22px;
 
   display: -webkit-box;
@@ -340,7 +340,7 @@ button:hover {
 }
 
 .login100-form-btn:disabled {
-  background-color: grey;
+  background-color: rgb(14, 13, 13);
 }
 
 

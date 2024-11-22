@@ -1,0 +1,131 @@
+/* Contenedor principal */
+.objective-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #1a1a1a; /* Fondo oscuro */
+  color: #d4af37; /* Oro */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Título */
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+/* Estilo del formulario */
+.objective-form {
+  margin-bottom: 30px;
+}
+
+.form-row {
+  margin-bottom: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-size: 14px;
+  color: #e0e0e0; /* Blanco suave */
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #0a192f;
+  color: #fff;
+  font-size: 14px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input:focus {
+  outline: none;
+  border-color: #d4af37;
+}
+
+button.objective-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #d4af37;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button.objective-button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+button.objective-button:hover:not(:disabled) {
+  background-color: #ffc857;
+}
+
+/* Estilo de la tabla */
+.table-container {
+  overflow-x: auto;
+}
+
+.objective-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #0a192f; /* Fondo oscuro para la tabla */
+  color: #fff;
+  text-align: left;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.objective-table thead {
+  background-color: #1e293b; /* Fondo para encabezado */
+}
+
+.objective-table th,
+.objective-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #333;
+}
+
+.objective-table th {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #d4af37;
+}
+
+/* Botón de alternar formulario */
+.form-toggle-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.form-toggle-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #d4af37; /* Dorado */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.form-toggle-button:hover {
+  background-color: #ffc857;
+}

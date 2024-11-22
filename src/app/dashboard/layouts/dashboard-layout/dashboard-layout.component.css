@@ -42,7 +42,7 @@
 }
 
 .mat-list-item:hover {
-  background-color: #333;
+  background-color: #111;
   color: #fff; /* Blanco para el hover */
 }
 
