@@ -4,6 +4,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
 import { DashboardService } from '../../service/dashboard.service';
 import Swal from 'sweetalert2';
+import { SharedDataService } from '../../service/shared-data-service.service';
 
 @Component({
   selector: 'app-perfil',
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./perfil.component.css'],
 })
 export class PerfilComponent implements OnInit {
+
   private fb = inject(FormBuilder);
   private dashboardService = inject(DashboardService);
   private authService = inject(AuthService);
@@ -35,7 +37,7 @@ export class PerfilComponent implements OnInit {
 
   @ViewChild('fileInput') public fileInput?: ElementRef;
 
-  constructor(private cdr: ChangeDetectorRef) {};
+  constructor(private cdr: ChangeDetectorRef, private sharedDataService: SharedDataService) {};
 
   triggerFileInput() {
     this.fileInput!.nativeElement.click();
@@ -140,10 +142,12 @@ export class PerfilComponent implements OnInit {
             // Procesar la foto en base64
             if (profile.photo) {
               this.photoPreview = `${profile.photo}`;
-              console.log({profile});
             } else {
               this.photoPreview = this.defaultPhoto; // Imagen por defecto
             }
+
+            // Actualizar la foto en el servicio compartido
+            this.sharedDataService.setProfilePhoto(this.photoPreview);
           }
         }
       });

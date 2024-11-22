@@ -11,7 +11,7 @@ describe('DashboardLayoutComponent', () => {
       declarations: [DashboardLayoutComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(DashboardLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

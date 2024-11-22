@@ -1,7 +1,8 @@
-// Interfaz Objetivo
 export interface Objective {
-  id: number;
-  name: string;
-  reps: number;
+  _id:    string;
+  idUser: string;
+  name:   string;
+  reps:   number;
   weight: number;
+  __v:    number;
 }

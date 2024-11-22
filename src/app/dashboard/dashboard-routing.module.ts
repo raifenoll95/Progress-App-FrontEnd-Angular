@@ -13,7 +13,7 @@ const routes: Routes = [
       {path: 'perfil', component: PerfilComponent},
       {path: 'exercises', component: ExercisesComponent},
       {path: 'objectives', component: ObjectivesComponent},
-      {path: '**', redirectTo: 'perfil'}
+      {path: '**', redirectTo: 'objectives'}
     ]
   }
 ];

@@ -1,4 +1,10 @@
 <div class="objective-container">
+
+  <!-- Foto de perfil arriba a la derecha -->
+  <div class="profile-photo-top-right">
+    <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil">
+  </div>
+
   <!-- Botón para mostrar/ocultar formulario -->
   <div class="form-toggle-container">
     <button (click)="toggleForm()" class="form-toggle-button">
@@ -7,12 +13,7 @@
   </div>
 
   <!-- Formulario -->
-  <form
-    *ngIf="showFormObjective"
-    [formGroup]="objectiveForm"
-    (ngSubmit)="addObjective()"
-    class="objective-form"
-  >
+  <form *ngIf="showFormObjective" [formGroup]="objectiveForm" (ngSubmit)="onSubmitObjective()" class="objective-form">
     <div class="form-row">
       <div class="form-group">
         <label for="name">Nombre del Ejercicio</label>
