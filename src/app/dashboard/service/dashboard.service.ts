@@ -43,7 +43,7 @@ export class DashboardService {
   // Método para actualizar el perfil
   updateProfile(id: string, name: string, age: number, gender: string, height: number, weight: number, email: string, specialty: string, photo: string): Observable<boolean> {
 
-    const url = `${this.baseUrl}/update/${id}`;
+    const url = `${this.baseUrl}/profile/update/${id}`;
     const body = { name, age, gender, height, weight, email, specialty, photo };
 
     return this.http.put<{ profile: Profile }>(url, body).pipe(
