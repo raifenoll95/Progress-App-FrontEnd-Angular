@@ -17,7 +17,6 @@ export class RegisterPageComponent {
 
   public registerForm: FormGroup = this.fb.group({
     email: ['',[Validators.required, Validators.email]],
-    name: ['',[Validators.required]],
     password: ['',[Validators.required, Validators.minLength(6)]],
     confirmPassword: ['',[Validators.required, Validators.minLength(6)]]
   });
@@ -32,9 +31,9 @@ export class RegisterPageComponent {
   register(): void {
 
     if (this.registerForm.valid && this.passwordsMatch()) {
-      const { email, name, password } = this.registerForm.value;
+      const { email, password } = this.registerForm.value;
 
-      this.authService.register(email, name, password)
+      this.authService.register(email, password, false)
     .subscribe({
       next: () => this.router.navigateByUrl('/dashboard'),
       error: (message: any) => {

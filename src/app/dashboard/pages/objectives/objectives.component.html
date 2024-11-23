@@ -8,7 +8,8 @@
   <!-- Botón para mostrar/ocultar formulario -->
   <div class="form-toggle-container">
     <button (click)="toggleForm()" class="form-toggle-button">
-      {{ showFormObjective ? 'Cerrar' : 'Añadir Objetivo' }}
+      {{ showFormObjective ? 'Cerrar Objetivo' : 'Añadir Objetivo' }}
+      <mat-icon aria-hidden="true" class="form-icon">fitness_center</mat-icon>
     </button>
   </div>
 
@@ -21,7 +22,7 @@
           type="text"
           id="name"
           formControlName="name"
-          placeholder="Ejemplo: Sentadillas"
+          placeholder="Nombre del Ejercicio"
         />
       </div>
     </div>
@@ -33,19 +34,19 @@
           type="number"
           id="reps"
           formControlName="reps"
-          placeholder="Ejemplo: 12"
+          placeholder="Número de repeticiones"
         />
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <label for="weight">Peso (Kg)</label>
+        <label for="weight">Opcional: Peso añadido (Kg)</label>
         <input
           type="number"
           id="weight"
           formControlName="weight"
-          placeholder="Ejemplo: 80"
+          placeholder=""
         />
       </div>
     </div>
@@ -59,29 +60,21 @@
     </button>
   </form>
 
-  <!-- Tabla de objetivos -->
-  <div class="table-container">
-    <table class="objective-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Ejercicio</th>
-          <th>Objetivo</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let objective of objectives; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ objective.name }}</td>
-          <td>{{ objective.reps }} x {{ objective.weight }} kg</td>
-          <td>
-            <!-- <button class="action-button" (click)="deleteObjective(objective.id)">
-              Eliminar
-            </button> -->
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Tarjetas de objetivos -->
+  <div class="objectives-container">
+    <div class="objective-card" *ngFor="let objective of objectives">
+      <div class="objective-content">
+        <div class="objective-info">
+          <h3 class="objective-name">{{ objective.name }}</h3>
+          <p class="objective-details">
+            {{ objective.reps }}
+            {{ objective.weight !== 0 ? 'x ' + objective.weight + ' kg' : 'repeticiones' }}
+          </p>
+        </div>
+        <div class="objective-actions">
+          <button class="btn-delete" (click)="deleteObjective(objective._id)">Eliminar</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

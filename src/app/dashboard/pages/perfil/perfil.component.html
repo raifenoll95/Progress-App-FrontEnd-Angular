@@ -1,8 +1,14 @@
 <div class="profile-container">
-  <!-- Foto de perfil arriba a la derecha -->
-  <div class="profile-photo-top-right">
-    <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil">
+
+  <!-- Mensaje de advertencia -->
+  <div *ngIf="athleteForm.get('name')?.invalid" class="mandatory-message">
+    Añade un nombre de usuario para continuar.
   </div>
+
+  <!-- Foto de perfil arriba a la derecha -->
+  <!-- <div class="profile-photo-top-right">
+    <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil">
+  </div> -->
 
   <form [formGroup]="athleteForm" (ngSubmit)="onSubmit()" class="profile-form">
     <h1 class="form-title">Perfil del Atleta</h1>
@@ -25,12 +31,12 @@
     </div>
 
     <div class="form-group">
-      <label for="name">Nombre</label>
-      <input id="name" type="text" formControlName="name" placeholder="Tu nombre completo" />
+      <label for="name">Nombre de usuario</label>
+      <input id="name" type="text" formControlName="name" placeholder="Nombre" [class.invalid]="athleteForm.get('name')?.invalid"/>
     </div>
 
     <div class="form-group">
-      <label for="specialty">Especialidad</label>
+      <label for="specialty">Especialidad deportiva</label>
       <select id="specialty" formControlName="specialty">
         <option value="Calistenia">Calistenia</option>
         <option value="Street Lifting">Street Lifting</option>

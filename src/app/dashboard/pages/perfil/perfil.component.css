@@ -177,3 +177,34 @@ button:hover:not(:disabled) {
   background-color: #ffc857; /* Color dorado más claro en hover */
 }
 
+/* Mensaje obligatorio */
+.mandatory-message {
+  display: flex; /* Habilita flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  background-color: #1a1a1a;
+  color: #d4af37; /* Dorado */
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid #d4af37;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Campo de entrada inválido */
+.invalid {
+  border: 2px solid #d4af37; /* Resalta el borde en dorado */
+  background-color: rgba(212, 175, 55, 0.1); /* Fondo suave dorado */
+  outline: none; /* Sin resaltado adicional */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Añade efecto al enfocarse en el campo inválido */
+.invalid:focus {
+  background-color: rgba(212, 175, 55, 0.2);
+}
+
+

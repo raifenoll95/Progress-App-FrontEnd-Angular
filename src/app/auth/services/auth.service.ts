@@ -5,6 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthStatus, User } from '../interfaces';
 import { environment } from '../../../environments/environments';
+import { ProfileCreated } from '../interfaces/create-profile-response';
 
 @Injectable({
   providedIn: 'root'
@@ -41,10 +42,10 @@ export class AuthService {
   }
 
   //register servicio
-  register( email: string, name: string, password: string ): Observable<boolean> {
+  register( email: string, password: string, perfil: boolean ): Observable<boolean> {
 
     const url  = `${ this.baseUrl }/auth/register`;
-    const body = { email, name, password };
+    const body = { email, password, perfil };
 
     return this.http.post<{ user: User; token: string }>( url, body )
       .pipe(
@@ -54,6 +55,28 @@ export class AuthService {
         }),
         catchError( err => throwError( () => err.error.message ))
       );
+  }
+
+  //Este metodo se llama cuando se crea un perfil de usuario.
+  updateUserProfile(id: string, perfil: boolean): Observable<boolean> {
+    const url = `${this.baseUrl}/auth/updateProfileValue/${id}`;
+    const body = { perfil };
+
+    return this.http.put<{ user: User }>(url, body).pipe(
+      map(({ user }) => true),
+      catchError(err => throwError(() => new Error(err.error?.message || 'No se ha podido actualizar el usuario')))
+    );
+  }
+
+  //Obtiene el perfil del usuario
+  getUser(id: string): Observable<User>{
+    const url = `${this.baseUrl}/auth/getUser/${id}`;
+
+    return this.http.get<User>(url).pipe(
+      catchError(err => {
+        return throwError(() => new Error(err.error?.message || 'No se ha podido obtener el perfil'));
+      })
+    );
   }
 
   // Método para cerrar sesión

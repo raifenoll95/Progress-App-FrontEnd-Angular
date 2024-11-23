@@ -30,10 +30,10 @@ export class ObjectiveService {
     );
   }
 
-  // Método para obtener todos los objetivos
-  getObjectives(): Observable<Objective[]> {
+  // Método para obtener todos los objetivos de un usuario
+  getObjectives(id: string): Observable<Objective[]> {
 
-    const url  = `${ this.baseUrl }/objective/allObjectives`;
+    const url  = `${ this.baseUrl }/objective/allObjectivesByUser`;
 
     return this.http.get<Objective[]>(url).pipe(
       catchError(err => {

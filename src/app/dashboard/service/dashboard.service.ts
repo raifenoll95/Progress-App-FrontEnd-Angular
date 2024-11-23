@@ -14,12 +14,12 @@ export class DashboardService {
   constructor(private http: HttpClient, private router: Router) { }
 
   // Método para crear perfil de usuario
-  createProfile(name: String, age: number, gender: string, height: number, weight: number, email: string, specialty: string, photo: string): Observable<boolean> {
+  createProfile(name: String, age: string, gender: string, height: string, weight: string, email: string, specialty: string, photo: string): Observable<boolean> {
 
     const url  = `${ this.baseUrl }/profile/create`;
     const body = { name, age, gender, height, weight, email, specialty, photo};
 
-    //En post va el tipo de respuesta que devuelve
+    //Guardar en bd el perfil
     return this.http.post<{profile: Profile}>(url, body).pipe(
       map(({ profile }) => {
         return true; // Indicar éxito en la autenticación
@@ -41,7 +41,7 @@ export class DashboardService {
   }
 
   // Método para actualizar el perfil
-  updateProfile(id: string, name: string, age: number, gender: string, height: number, weight: number, email: string, specialty: string, photo: string): Observable<boolean> {
+  updateProfile(id: string, name: string, age: string, gender: string, height: string, weight: string, email: string, specialty: string, photo: string): Observable<boolean> {
 
     const url = `${this.baseUrl}/profile/update/${id}`;
     const body = { name, age, gender, height, weight, email, specialty, photo };

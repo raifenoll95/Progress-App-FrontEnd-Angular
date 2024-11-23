@@ -23,13 +23,13 @@ export class PerfilComponent implements OnInit {
 
   public athleteForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    age: [, [Validators.required, Validators.min(10)]],
-    gender: ['', Validators.required],
-    height: [, [Validators.required, Validators.min(100)]],
-    weight: [, [Validators.required, Validators.min(30)]],
+    age: [null,[Validators.min(1), Validators.min(100)]],
+    gender: [''],
+    height: [null,[Validators.min(50), Validators.max(250)]],
+    weight: [null,[Validators.min(10), Validators.min(30)]],
     photo: [null], // Campo para la foto
     email: ['', [Validators.required, Validators.email]],
-    specialty: ['', Validators.required],
+    specialty: [''],
   });
 
   photoPreview: string | null = 'assets/profile.png'; // Imagen por defecto
@@ -41,6 +41,10 @@ export class PerfilComponent implements OnInit {
 
   triggerFileInput() {
     this.fileInput!.nativeElement.click();
+  }
+
+  markNameAsTouched(): void {
+    this.athleteForm.get('name')?.markAsTouched();
   }
 
   onFileChange(event: Event) {
@@ -124,38 +128,44 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //Primero de todo seteamos el correo del usuario
-    const email = this.authService.currentUser()?.email;
+    //Primero de todo seteamos el correo del usuario en el formulario
+    const currentUser = this.authService.currentUser();
+    const email = currentUser!.email;
     this.athleteForm.patchValue({
       email: email
     });
 
-    //En caso de que ya se haya guardado el perfil, procedo a recuperarlo de bd
-    if (email) {
-      this.dashboardService.getProfileByEmail(email).subscribe({
-        next: (profile) => {
-          if (profile) {
-            this.isEditing = true; // Modo edicion
-            this.profileId = profile._id; //Guardamos id perfil
-            this.athleteForm.patchValue(profile); // Rellena el formulario
+    //Vemos si el usuario tiene guardado el perfil, y en caso de que lo tenga, recuperamos dicho perfil y lo parcheamos en el formulario.
+    this.authService.getUser(currentUser?._id!).subscribe({
+      next: (user) => {
+        if(user.perfil) {
+          this.dashboardService.getProfileByEmail(email).subscribe({
+            next: (profile) => {
+              if (profile) {
+                this.isEditing = true; // Modo edicion
+                this.profileId = profile._id; //Guardamos id perfil
 
-            // Procesar la foto en base64
-            if (profile.photo) {
-              this.photoPreview = `${profile.photo}`;
-            } else {
-              this.photoPreview = this.defaultPhoto; // Imagen por defecto
+                this.athleteForm.patchValue(profile); // Rellena el formulario
+
+                // Procesar la foto en base64
+                if (profile.photo) {
+                  this.photoPreview = `${profile.photo}`;
+                } else {
+                  this.photoPreview = this.defaultPhoto; // Imagen por defecto
+                }
+
+                // Actualizar la foto en el servicio compartido
+                this.sharedDataService.setProfilePhoto(this.photoPreview);
+              }
             }
-
-            // Actualizar la foto en el servicio compartido
-            this.sharedDataService.setProfilePhoto(this.photoPreview);
-          }
+          });
         }
-      });
-    }
+      }
+    })
   }
 
   //Guardar/Update perfil
-  private saveProfile(name: string, age: number, gender: string, height: number, weight: number, email: string, specialty: string, photo: string): void {
+  private saveProfile(name: string, age: string, gender: string, height: string, weight: string, email: string, specialty: string, photo: string): void {
     if (this.isEditing && this.profileId) {
       // Actualizar perfil
       this.dashboardService.updateProfile(
@@ -163,9 +173,16 @@ export class PerfilComponent implements OnInit {
       ).subscribe({
         next: () => {
           Swal.fire({
-            title: 'Perfil Actualizado',
+            title: 'Perfil actualizado',
             text: 'Tu perfil se actualizó correctamente.',
             icon: 'success',
+            customClass: {
+              popup: 'swal-popup',
+              title: 'swal-title',
+              htmlContainer: 'swal-text',
+              confirmButton: 'swal-button'
+            },
+            buttonsStyling: false // Deshabilita estilos predeterminados de botones
           });
         },
         error: () => {
@@ -173,30 +190,50 @@ export class PerfilComponent implements OnInit {
         },
       });
     } else {
+
       // Crear perfil
       this.dashboardService.createProfile(
         name, age, gender, height, weight, email, specialty, photo
       ).subscribe({
         next: () => {
-          Swal.fire({
-            title: 'Perfil Guardado',
-            text: 'Tu perfil se guardó correctamente.',
-            icon: 'success',
+          //valor profile del usuario a true
+          const user = this.authService.currentUser();
+          this.authService.updateUserProfile(user?._id!, true).subscribe({
+            next: () => {
+              Swal.fire({
+                title: 'Perfil actualizado',
+                text: 'Tu perfil se actualizó correctamente.',
+                icon: 'success',
+                customClass: {
+                  popup: 'swal-popup',
+                  title: 'swal-title',
+                  htmlContainer: 'swal-text',
+                  confirmButton: 'swal-button'
+                },
+                buttonsStyling: false // Deshabilita estilos predeterminados de botones
+              });
+            },
+            error: () => {
+              Swal.fire('Error', 'Hubo un problema al actualizar el usuario.', 'error');
+            },
           });
+          //this.router.navigateByUrl('/dashboard/objectives');
         },
         error: () => {
           Swal.fire('Error', 'Hubo un problema al guardar el perfil.', 'error');
         },
       });
     }
+    this.athleteForm.markAsPristine();
   }
 
   //OnSubmit
   onSubmit(): void {
+
     if (this.athleteForm.valid) {
       const { name, age, gender, height, weight, email, specialty, photo } = this.athleteForm.value;
 
-      // Si la foto es base64, úsala directamente
+      //Si la foto es base64, úsala directamente. Perfil guardado con anterioridad.
       if (typeof photo === 'string') {
         this.saveProfile(name, age, gender, height, weight, email, specialty, photo);
         return;
@@ -211,7 +248,7 @@ export class PerfilComponent implements OnInit {
         };
         reader.readAsDataURL(photo);
       } else {
-        console.error('La propiedad "photo" no contiene un archivo válido.');
+        this.saveProfile(name, age, gender, height, weight, email, specialty, photo);
       }
     } else {
       console.error('Formulario inválido.');

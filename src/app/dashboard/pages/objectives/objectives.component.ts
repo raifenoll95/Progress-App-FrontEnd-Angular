@@ -59,7 +59,8 @@ export class ObjectivesComponent implements OnInit{
   }
 
   getObjectives() {
-    this.objectiveService.getObjectives().
+    const id = this.authService.currentUser()?._id;
+    this.objectiveService.getObjectives(id!).
       subscribe(
         (data: Objective[]) => {
           this.objectives = data;
@@ -73,9 +74,17 @@ export class ObjectivesComponent implements OnInit{
   //OnInit componente
   ngOnInit(): void {
 
+    const currentUser = this.authService.currentUser();
+    this.authService.getUser(currentUser?._id!).subscribe({
+      next: (user) => {
+        if(!user.perfil) {
+          this.router.navigateByUrl('/dashboard/perfil');
+        }
+      }
+    })
+
     //Actualiza foto de perfil
     this.setPhotoProfile();
-
     //Recuperar el listado de objetivos
     this.getObjectives();
   }
@@ -85,7 +94,7 @@ export class ObjectivesComponent implements OnInit{
   }
 
   //Submit Introducir objetivo
-  onSubmitObjective() : void{
+  onSubmitObjective() : void {
 
     if(this.objectiveForm.valid) {
 
@@ -99,12 +108,45 @@ export class ObjectivesComponent implements OnInit{
             title: 'Objetivo añadido',
             text: 'Tu objetivo se añadió correctamente.',
             icon: 'success',
+            customClass: {
+              popup: 'swal-popup',
+              title: 'swal-title',
+              htmlContainer: 'swal-text',
+              confirmButton: 'swal-button'
+            },
+            buttonsStyling: false // Deshabilita estilos predeterminados de botones
           });
+
+          // Una vez creado el objetivo, llamamos a getObjectives() para actualizar la lista
+          const id = this.authService.currentUser()?._id;
+          this.objectiveService.getObjectives(id!).subscribe({
+            next: (updatedObjectives) => {
+              // Actualizamos la lista de objetivos en el componente
+              this.objectives = updatedObjectives;
+            },
+            error: (err) => {
+              console.error('Error al obtener los objetivos actualizados:', err);
+              Swal.fire('Error', 'No se pudo actualizar la lista de objetivos.', 'error');
+            }
+          });
+
+          //Cierra formulario
+          this.toggleForm();
+          //Resetea formulario
+          this.objectiveForm.reset();
         },
         error: () => {
           Swal.fire('Error', 'Hubo un problema al crear el objetivo.', 'error');
         },
       });
     }
+  }
+
+  deleteObjective(id: string) {
+
+  }
+
+  newPR(id: string) {
+
   }
 }
