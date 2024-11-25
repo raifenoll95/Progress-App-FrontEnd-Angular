@@ -8,7 +8,6 @@
 
     <!-- Nombre de usuario -->
     <div class="user-name">
-      Tus objetivos,
       <div>
         {{ userName || 'Cargando...' }}
       </div>
@@ -72,12 +71,22 @@
 
   <!-- Tarjetas de objetivos -->
   <div class="objectives-container">
-    <div *ngIf="objectives.length === 0" class="no-objectives-message">
+    <div *ngIf="objectives.length === 0; else objectivesInProgress" class="no-objectives-message">
       No tienes objetivos todavía,
       <div>
         <span>empieza hoy mismo.</span>
       </div>
     </div>
+    <ng-template #objectivesInProgress>
+      <div *ngIf="objectives.length === 1; else objectivesInProgress" class="no-objectives-message">
+        {{ objectives.length }} objetivo en curso.
+      </div>
+      <ng-template #objectivesInProgress>
+        <div class="no-objectives-message">
+          {{ objectives.length }} objetivos en curso.
+        </div>
+      </ng-template>
+    </ng-template>
     <div class="objective-card" *ngFor="let objective of objectives">
       <div class="objective-content">
         <div class="objective-info">
