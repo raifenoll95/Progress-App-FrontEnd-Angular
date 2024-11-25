@@ -36,6 +36,7 @@ export class ObjectivesComponent implements OnInit{
     weight: ['',]
   });
 
+  //Setear foto de perfil y nombre de usuario
   setPhotoProfileAndUser() {
     //Foto de perfil arriba a la derecha
     const email = this.authService.currentUser()?.email;
@@ -64,6 +65,7 @@ export class ObjectivesComponent implements OnInit{
     }
   }
 
+  //Obten los objetivos de un usuario
   getObjectives() {
     const id = this.authService.currentUser()?._id;
     this.objectiveService.getObjectives(id!).
@@ -95,8 +97,9 @@ export class ObjectivesComponent implements OnInit{
     this.getObjectives();
   }
 
+  // Alterna la visibilidad del formulario
   toggleForm(): void {
-    this.showFormObjective = !this.showFormObjective; // Alterna la visibilidad del formulario
+    this.showFormObjective = !this.showFormObjective;
   }
 
   //Submit Introducir objetivo
@@ -148,11 +151,8 @@ export class ObjectivesComponent implements OnInit{
     }
   }
 
-  deleteObjective(id: string) {
-
-  }
-
-  newPR(id: string) {
-
+  //Al hacer click en uno de las tarjetas se redirige a un formulario en -> components.
+  onCardClick(objective: Objective) {
+    this.router.navigate(['/dashboard/objectivesForm', objective._id]);
   }
 }

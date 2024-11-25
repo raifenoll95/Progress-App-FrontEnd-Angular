@@ -12,6 +12,7 @@ import { ObjectivesComponent } from './pages/objectives/objectives.component';
 import { ExercisesComponent } from './pages/exercises/exercises.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { ObjectiveFormComponent } from './components/objective-form/objective-form.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
     PerfilComponent,
     ObjectivesComponent,
     ExercisesComponent,
+    ObjectiveFormComponent,
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,6 @@
     <div class="profile-photo-top-right">
       <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil">
     </div>
-
     <!-- Nombre de usuario -->
     <div class="user-name">
       <div>
@@ -87,7 +86,7 @@
         </div>
       </ng-template>
     </ng-template>
-    <div class="objective-card" *ngFor="let objective of objectives">
+    <div class="objective-card" *ngFor="let objective of objectives" (click)="onCardClick(objective)">
       <div class="objective-content">
         <div class="objective-info">
           <h3 class="objective-name">{{ objective.name }}</h3>
@@ -97,7 +96,7 @@
           </p>
         </div>
         <div class="objective-actions">
-          <button class="btn-delete" (click)="deleteObjective(objective._id)">Eliminar</button>
+          <!-- <button class="btn-delete" (click)="deleteObjective(objective._id)">Eliminar</button> -->
         </div>
       </div>
     </div>

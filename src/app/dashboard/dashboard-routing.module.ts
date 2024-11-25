@@ -4,6 +4,7 @@ import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-l
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { ObjectivesComponent } from './pages/objectives/objectives.component';
 import { ExercisesComponent } from './pages/exercises/exercises.component';
+import { ObjectiveFormComponent } from './components/objective-form/objective-form.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       {path: 'perfil', component: PerfilComponent},
       {path: 'exercises', component: ExercisesComponent},
       {path: 'objectives', component: ObjectivesComponent},
+      {path: 'objectivesForm/:id', component: ObjectiveFormComponent },
       {path: '**', redirectTo: 'objectives'}
     ]
   }
