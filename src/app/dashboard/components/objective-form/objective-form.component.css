@@ -1,0 +1,56 @@
+/* Estilos generales para el contenedor de la información del objetivo */
+.objective-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #2a2a2a; /* Fondo oscuro para contraste */
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  color: #fff;
+}
+
+/* Estilo para la información del objetivo */
+.objective-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Estilo para el nombre del ejercicio */
+.objective-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #d4af37; /* Dorado */
+  text-transform: capitalize;
+}
+
+/* Estilo para los detalles (repeticiones y peso) */
+.objective-detail {
+  font-size: 16px;
+  color: #ccc; /* Gris claro para los detalles */
+}
+
+.objective-detail span {
+  display: block;
+  padding: 5px 0;
+}
+
+.objective-detail strong {
+  color: #d4af37; /* Color dorado para las etiquetas */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 600px) {
+  .objective-container {
+    padding: 15px;
+  }
+
+  .objective-name {
+    font-size: 24px;
+  }
+
+  .objective-detail {
+    font-size: 14px;
+  }
+}

@@ -37,7 +37,19 @@ export class ObjectiveService {
 
     return this.http.get<Objective[]>(url).pipe(
       catchError(err => {
-        return throwError(() => new Error(err.error?.message || 'No se ha podido obtener el perfil'));
+        return throwError(() => new Error(err.error?.message || 'No se ha podido obtener los objetivos'));
+      })
+    );
+  }
+
+  // Método para obtener todos los objetivos de un usuario
+  getObjectiveById(id: string): Observable<Objective> {
+
+    const url  = `${ this.baseUrl }/objective/getObjectiveById/${id}`;
+
+    return this.http.get<Objective>(url).pipe(
+      catchError(err => {
+        return throwError(() => new Error(err.error?.message || 'No se ha podido obtener el objetivo'));
       })
     );
   }

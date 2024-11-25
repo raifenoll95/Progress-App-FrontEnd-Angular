@@ -1,6 +1,20 @@
-<p>objective-form works!</p>
+<div class="objective-container">
+  <!-- Información del objetivo -->
+  <div class="objective-info">
 
+    <!-- Nombre del ejercicio -->
+    <div class="objective-name">
+      <span>{{ objectiveForm!.name }}</span>
+    </div>
 
+    <!-- Repeticiones -->
+    <div class="objective-detail">
+      <span><strong>Repeticiones:</strong> {{ objectiveForm!.reps }}</span>
+    </div>
 
-
-
+    <!-- Peso añadido (si aplica) -->
+    <div class="objective-detail">
+      <span><strong>Peso añadido:</strong> {{ objectiveForm!.weight !== 0 ? objectiveForm!.weight + ' kg' : 'No especificado' }}</span>
+    </div>
+  </div>
+</div>
