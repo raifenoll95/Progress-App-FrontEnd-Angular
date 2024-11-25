@@ -1,4 +1,25 @@
-<div class="objective-container">
+<div class="profile-photo-container">
+  <!-- Foto de perfil -->
+  <div class="profile-photo-top-right">
+    <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil">
+  </div>
+  <!-- Nombre de usuario -->
+  <div class="user-name">
+    <div>
+      {{ userName || 'Cargando...' }}
+    </div>
+  </div>
+</div>
+
+<div class="back-button-container">
+  <button class="back-button" (click)="goBack()">
+    <mat-icon class="back-icon">arrow_back_ios</mat-icon>
+    <span>Regresar a los Objetivos</span>
+  </button>
+</div>
+
+<!-- Aquí empieza el contenido del objetivo -->
+<div class="objective-container" *ngIf="objectiveForm">
   <!-- Información del objetivo -->
   <div class="objective-info">
 
