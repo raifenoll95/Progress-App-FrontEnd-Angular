@@ -1,8 +1,18 @@
 <div class="objective-container">
 
-  <!-- Foto de perfil arriba a la derecha -->
-  <div class="profile-photo-top-right">
-    <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil">
+  <div class="profile-photo-container">
+    <!-- Foto de perfil -->
+    <div class="profile-photo-top-right">
+      <img [src]="photoPreview || defaultPhoto" alt="Foto de perfil">
+    </div>
+
+    <!-- Nombre de usuario -->
+    <div class="user-name">
+      Tus objetivos,
+      <div>
+        {{ userName || 'Cargando...' }}
+      </div>
+    </div>
   </div>
 
   <!-- Botón para mostrar/ocultar formulario -->
@@ -62,6 +72,12 @@
 
   <!-- Tarjetas de objetivos -->
   <div class="objectives-container">
+    <div *ngIf="objectives.length === 0" class="no-objectives-message">
+      No tienes objetivos todavía,
+      <div>
+        <span>empieza hoy mismo.</span>
+      </div>
+    </div>
     <div class="objective-card" *ngFor="let objective of objectives">
       <div class="objective-content">
         <div class="objective-info">

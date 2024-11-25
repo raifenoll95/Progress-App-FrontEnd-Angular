@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DashboardService } from '../../service/dashboard.service';
 import { AuthService } from '../../../auth/services/auth.service';
@@ -25,8 +25,9 @@ export class ObjectivesComponent implements OnInit{
 
   photoPreview: string | null = 'assets/profile.png'; // Imagen por defecto
   defaultPhoto: string = 'assets/profile.png'; // Imagen por defecto
+  userName: string = ''; //Nombre del usuario
 
-  constructor(private sharedDataService: SharedDataService) {}
+  constructor(private sharedDataService: SharedDataService, private cdr: ChangeDetectorRef) {}
 
   // Formulario ObjectiveForm
   public objectiveForm: FormGroup = this.fb.group({
@@ -35,17 +36,22 @@ export class ObjectivesComponent implements OnInit{
     weight: ['',]
   });
 
-  setPhotoProfile() {
+  setPhotoProfileAndUser() {
     //Foto de perfil arriba a la derecha
     const email = this.authService.currentUser()?.email;
 
     if (email) {
       this.dashboardService.getProfileByEmail(email).subscribe({
         next: (profile) => {
-          if (profile && profile.photo) {
-            this.photoPreview = profile.photo;
-          } else {
-            this.photoPreview = this.defaultPhoto;
+          if(profile) {
+            this.userName = profile.name;
+            if(profile.photo){
+              this.photoPreview = profile.photo;
+            }
+            else {
+              this.photoPreview = this.defaultPhoto;
+            }
+            //this.cdr.detectChanges(); // <-- Forzar detección de cambios
           }
         },
         error: () => {
@@ -83,8 +89,8 @@ export class ObjectivesComponent implements OnInit{
       }
     })
 
-    //Actualiza foto de perfil
-    this.setPhotoProfile();
+    //Actualiza foto de perfil y nombre de usuario
+    this.setPhotoProfileAndUser();
     //Recuperar el listado de objetivos
     this.getObjectives();
   }
