@@ -151,7 +151,7 @@ export class ObjectivesComponent implements OnInit{
     }
   }
 
-  //Al hacer click en uno de las tarjetas se redirige a un formulario en -> components.
+  //Al hacer click en uno de las tarjetas se redirige a un formulario en -> components
   onCardClick(objective: Objective) {
     this.router.navigate(['/dashboard/objectivesForm', objective._id]);
   }

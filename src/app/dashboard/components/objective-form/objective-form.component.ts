@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Objective } from '../../interfaces/objective.interface';
 import { DashboardService } from '../../service/dashboard.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { MarksService } from '../../service/marks/marks.service';
+import Swal from 'sweetalert2';
+import { Mark } from '../../interfaces/mark.interface';
 
 @Component({
   selector: 'app-objective-form',
@@ -19,6 +22,10 @@ export class ObjectiveFormComponent implements OnInit {
   private dashboardService = inject(DashboardService);
   private authService = inject(AuthService);
   private objectiveService = inject(ObjectiveService);
+  private marksService = inject(MarksService);
+  private idObjective?: string;
+  private idUser?: string;
+  public marks: Mark[] = [];
   photoPreview: string | null = 'assets/profile.png'; // Imagen por defecto
   defaultPhoto: string = 'assets/profile.png'; // Imagen por defecto
   userName: string = ''; //Nombre del usuario
@@ -26,6 +33,14 @@ export class ObjectiveFormComponent implements OnInit {
   constructor() {}
 
   public objectiveForm?: Objective;
+  showForm: boolean = false;
+
+  // Formulario ObjectiveForm
+  public marksForm: FormGroup = this.fb.group({
+    reps: [, [Validators.required]],
+    weight: [''],
+    sensations: [''],
+  });
 
   //leer objetivo
   loadObjective(id: string): void {
@@ -63,13 +78,34 @@ export class ObjectiveFormComponent implements OnInit {
     }
   }
 
+  getMarks() {
+    // Una vez creado el objetivo, llamamos a getMarks() para actualizar la lista
+    this.marksService.getMarks(this.idUser!, this.idObjective!).subscribe({
+      next: (updatedMarks) => {
+        // Actualizamos la lista de marcas
+        this.marks = updatedMarks;
+        console.log(this.marks)
+      },
+      error: (err) => {
+        console.error('Error al obtener los objetivos actualizados:', err);
+        Swal.fire('Error', 'No se pudo actualizar la lista de objetivos.', 'error');
+      }
+    });
+  }
+
   ngOnInit(): void {
 
+    //Primero de todo seteamos el id del usuario en el formulario
+    this.idUser = this.authService.currentUser()?._id!;
+
     // Obtener el ID de la ruta usando snapshot
-    const id = this.router.snapshot.paramMap.get('id');
-    if (id) {
-      this.loadObjective(id); // Cargar el objetivo si el ID existe
+    this.idObjective = this.router.snapshot.paramMap.get('id')!;
+    if (this.idObjective) {
+      this.loadObjective(this.idObjective); // Cargar el objetivo si el ID existe
     }
+
+    //Obten todas las marcas de este objetivo
+    this.getMarks();
 
     //Actualiza foto de perfil y nombre de usuario
     this.setPhotoProfileAndUser();
@@ -78,5 +114,46 @@ export class ObjectiveFormComponent implements OnInit {
   //regresar al listado de objetivos
   goBack() {
     this.router2.navigate(['/dashboard/objectives']);  // Asegúrate de que esta ruta sea correcta
+  }
+
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+
+  onSubmit() {
+    if (this.marksForm.valid) {
+      const { reps, weight, sensations } = this.marksForm.value;
+      const date = new Date();
+
+      // Crear perfil
+      this.marksService.create(
+        this.idUser!, this.idObjective!, reps, weight, date, sensations
+      ).subscribe({
+        next: () => {
+
+          //Actualiza la tabla de marcas
+          this.getMarks();
+
+          Swal.fire({
+            title: 'Marca registrada',
+            text: 'Tu marca se guardó correctamente.',
+            icon: 'success',
+            customClass: {
+              popup: 'swal-popup',
+              title: 'swal-title',
+              htmlContainer: 'swal-text',
+              confirmButton: 'swal-button'
+            },
+            buttonsStyling: false // Deshabilita estilos predeterminados de botones
+          });
+        },
+        error: () => {
+          Swal.fire('Error', 'Hubo un problema al guardar el perfil.', 'error');
+        },
+      });
+      this.showForm = false; // Cierra el formulario
+      //Resetea formulario
+      this.marksForm.reset(); //Resetea el formulario
+    }
   }
 }

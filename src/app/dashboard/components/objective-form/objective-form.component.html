@@ -1,3 +1,4 @@
+<!-- FOTO DE PERFIL Y NOMBRE ARRIBA A LA DERECHA -->
 <div class="profile-photo-container">
   <!-- Foto de perfil -->
   <div class="profile-photo-top-right">
@@ -11,6 +12,7 @@
   </div>
 </div>
 
+<!-- BOTON REGRESAR -->
 <div class="back-button-container">
   <button class="back-button" (click)="goBack()">
     <mat-icon class="back-icon">arrow_back_ios</mat-icon>
@@ -18,24 +20,109 @@
   </button>
 </div>
 
-<!-- Aquí empieza el contenido del objetivo -->
+<!-- INFORMACION DEL OBJETIVO -->
 <div class="objective-container" *ngIf="objectiveForm">
-  <!-- Información del objetivo -->
-  <div class="objective-info">
+  <!-- Nombre del ejercicio -->
+  <div class="objective-name">
+    {{ objectiveForm!.name }}
+  </div>
 
-    <!-- Nombre del ejercicio -->
-    <div class="objective-name">
-      <span>{{ objectiveForm!.name }}</span>
-    </div>
+  <!-- Detalles del ejercicio -->
+  <div class="objective-details">
+    {{ objectiveForm!.reps }}
+    {{ objectiveForm!.weight !== 0 ? 'x ' + objectiveForm!.weight + ' kg' : 'repeticiones' }}
+  </div>
+</div>
 
-    <!-- Repeticiones -->
-    <div class="objective-detail">
-      <span><strong>Repeticiones:</strong> {{ objectiveForm!.reps }}</span>
-    </div>
+<!-- TABLA DE MARCA DE REGISTROS -->
+<div class="marks-table-container">
+  <div class="marks-header">
+    <h2 class="table-title">Historial de Marcas</h2>
+    <!-- Botón de agregar marca -->
+     <div>
+      <button class="add-mark-button" (click)="toggleForm()">
+        <mat-icon>add</mat-icon>
+      </button>
+     </div>
+  </div>
 
-    <!-- Peso añadido (si aplica) -->
-    <div class="objective-detail">
-      <span><strong>Peso añadido:</strong> {{ objectiveForm!.weight !== 0 ? objectiveForm!.weight + ' kg' : 'No especificado' }}</span>
-    </div>
+  <!-- Formulario para registrar marca -->
+  <div *ngIf="showForm" class="form-container">
+    <h3 class="form-title">Registrar Marca</h3>
+
+    <form [formGroup]="marksForm" (ngSubmit)="onSubmit()" class="form-body">
+      <!-- Repeticiones -->
+      <div class="form-group">
+        <label for="reps" class="form-label">Repeticiones</label>
+        <input
+          type="number"
+          id="reps"
+          formControlName="reps"
+          placeholder="Introduce el número de repeticiones"
+          class="form-input"
+        />
+        <div *ngIf="marksForm.get('reps')?.invalid && marksForm.get('reps')?.touched" class="error-message">
+          Las repeticiones son obligatorias.
+        </div>
+      </div>
+
+      <!-- Peso -->
+      <div class="form-group">
+        <label for="weight" class="form-label">Peso (Kg)</label>
+        <input
+          type="number"
+          id="weight"
+          formControlName="weight"
+          placeholder="Introduce el peso añadido (opcional)"
+          class="form-input"
+        />
+      </div>
+
+      <!-- Sensaciones -->
+      <div class="form-group">
+        <label for="sensations">Sensaciones</label>
+        <select id="sensations" formControlName="sensations">
+          <option value=""></option>
+          <option value="Mal">Mal</option>
+          <option value="Normal">Normal</option>
+          <option value="Buenas">Buenas</option>
+          <option value="PR (Personal Record)">PR (Personal Record)</option>
+        </select>
+      </div>
+
+      <!-- Botón de Enviar -->
+      <div class="form-actions">
+        <button type="submit" [disabled]="marksForm.invalid" class="submit-button">
+          Registrar Marca
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tabla de marcas -->
+  <div class="responsive-table">
+    <table class="marks-table">
+      <thead>
+        <tr>
+          <th>Repe</th>
+          <th>Peso</th>
+          <th>Sensaciones</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mark of marks">
+          <td data-label="Repes">{{ mark.reps }}</td>
+          <td data-label="Peso">
+            {{ mark.weight > 0 ? mark.weight + ' kg' : 'No especificado' }}
+          </td>
+          <td data-label="Sensaciones">{{ mark.sensations }}</td>
+          <td data-label="Fecha">{{ mark.date | date: 'mediumDate' }}</td>
+        </tr>
+        <tr *ngIf="marks.length === 0">
+          <td colspan="4" class="no-data">No hay marcas registradas aún.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

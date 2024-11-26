@@ -94,45 +94,35 @@
 
 
 /* ---------------------------Estilos generales para el contenedor de la información del objetivo--------------------------- */
+/* Contenedor Principal */
 .objective-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
   margin: 20px auto;
+  text-align: center;
   padding: 20px;
-  background-color: #2a2a2a; /* Fondo oscuro para contraste */
+  border: 2px solid #d4af37; /* Borde dorado */
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  background-color: #1e1e1e; /* Fondo oscuro elegante */
   color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo para la información del objetivo */
-.objective-info {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Estilo para el nombre del ejercicio */
+/* Nombre del Ejercicio */
 .objective-name {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: bold;
   color: #d4af37; /* Dorado */
+  margin-bottom: 10px;
   text-transform: capitalize;
 }
 
-/* Estilo para los detalles (repeticiones y peso) */
-.objective-detail {
-  font-size: 16px;
-  color: #ccc; /* Gris claro para los detalles */
-}
-
-.objective-detail span {
-  display: block;
-  padding: 5px 0;
-}
-
-.objective-detail strong {
-  color: #d4af37; /* Color dorado para las etiquetas */
+/* Detalles del Ejercicio */
+.objective-details {
+  font-size: 18px;
+  color: #ccc; /* Gris claro */
+  font-weight: 500;
+  margin-top: 5px;
 }
 
 /* Ajustes para pantallas pequeñas */
@@ -142,10 +132,199 @@
   }
 
   .objective-name {
-    font-size: 24px;
+    font-size: 26px;
   }
 
-  .objective-detail {
-    font-size: 14px;
+  .objective-details {
+    font-size: 16px;
+  }
+}
+
+/* -----------------------TABLA DE MARCAS REGISTRADAS------------------------- */
+
+/* Estilos para el contenedor de la tabla */
+.marks-table-container {
+  margin: 20px auto;
+  max-width: 900px;
+  padding: 20px;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  overflow-x: auto; /* Scroll horizontal */
+}
+
+/* Encabezado de la tabla y botón */
+.marks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table-title {
+  font-size: 18px;
+  color: #d4af37;
+  font-weight: bold;
+}
+
+/* Estilo para el botón + circular */
+.add-mark-button {
+  background-color: #d4af37; /* Color de fondo dorado */
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center;     /* Centrado vertical */
+  width: 50px;             /* Tamaño del botón */
+  height: 50px;            /* Tamaño del botón */
+  border-radius: 50%;      /* Hace el botón circular */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 0;              /* Sin padding para un ajuste perfecto */
+}
+
+/* Estilo para el icono "+" dentro del botón */
+.add-mark-button mat-icon {
+  font-size: 20px;         /* Ajuste del tamaño del icono */
+  margin: 0;               /* Elimina cualquier margen extra */
+}
+
+/* Efecto hover: cambiar el color del fondo */
+.add-mark-button:hover {
+  background-color: #f7d233; /* Color más claro al pasar el mouse */
+}
+
+/* Eliminar borde de enfoque al hacer clic */
+.add-mark-button:focus {
+  outline: none;
+}
+
+
+
+
+/* Formulario */
+.form-container {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  display: block;
+}
+
+.form-title {
+  color: #d4af37;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-input,
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background-color: #444;
+  color: white;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #d4af37;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #f7d233;
+}
+
+.submit-button:focus {
+  outline: none;
+}
+
+/* Tabla */
+.marks-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #3a3a3a;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 14px; /* Tamaño base ajustado */
+}
+
+.marks-table th {
+  background-color: #d4af37; /* Dorado */
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 6px 8px; /* Espaciado reducido */
+  text-align: left;
+  font-size: 12px; /* Más pequeño para dispositivos móviles */
+  white-space: nowrap; /* Evita saltos de línea */
+}
+
+.marks-table td {
+  padding: 8px 6px; /* Ajustado para mayor compactación */
+  border-top: 1px solid #444;
+  color: #fff;
+  word-break: break-word; /* Permite ajustar texto largo */
+  font-size: 12px; /* Más pequeño para caber mejor */
+}
+
+.marks-table tr:nth-child(even) {
+  background-color: #2a2a2a;
+}
+
+.marks-table tr:hover {
+  background-color: #3d3d3d;
+}
+
+.marks-table .no-data {
+  text-align: center;
+  font-style: italic;
+  color: #ccc;
+  padding: 15px 0;
+  font-size: 12px; /* Tamaño reducido */
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .marks-table th,
+  .marks-table td {
+    font-size: 13px; /* Tamaño mínimo para pantallas pequeñas */
+    padding: 4px 3px; /* Espaciado mínimo */
+  }
+
+  .table-title {
+    font-size: 15px; /* Tamaño reducido */
+    margin-bottom: 8px;
   }
 }
